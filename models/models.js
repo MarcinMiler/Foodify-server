@@ -16,7 +16,7 @@ const OrderSchema = new Schema({
     clientID: String,
     date: String,
     products: [{
-        product: ProductSchema,
+        productID: String,
         quantity: Number
     }],
     totalPrice: String,

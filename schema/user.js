@@ -1,9 +1,15 @@
 export default `
     type User {
-        firstName: String
+        id: String!
+        firstName: String!
+        lastName: String!
+        email: String!
+        password: String!
+        orders: [String]
     }
 
     type Query {
-        hi: String
+        users: [User]
+        orders: [Order]
     }
 `
