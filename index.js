@@ -34,7 +34,7 @@ db.once('open',() => {
   console.log('open db')
 })
 
-server.use('*', cors({ origin: 'http://localhost:3000' }))
+server.use(cors('*'))
 
 const addUser = async (req, res, next) => {
   const token = req.headers['x-token']
