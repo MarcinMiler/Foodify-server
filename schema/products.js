@@ -1,12 +1,17 @@
 export default `
     type Product {
-        id: String!
+        id: ID!
         name: String!
-        price: String!
+        price: Float!
         category: String!
     }
 
     type Query {
-        products(categoty: String!): [Product!]
+        products(category: String!): [Product!]
+    }
+
+    type Mutation {
+        addProduct(name: String! price: Float!, category: String!): Boolean!
+        deleteProduct(id: ID!): Boolean!
     }
 `

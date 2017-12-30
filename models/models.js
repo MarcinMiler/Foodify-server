@@ -8,7 +8,7 @@ const UserSchema = new Schema({
     lastName: String,
     email: String,
     password: String,
-    orders: [String]
+    orders: []
 })
 
 const OrderSchema = new Schema({
@@ -19,7 +19,7 @@ const OrderSchema = new Schema({
         productID: String,
         quantity: Number
     }],
-    totalPrice: String,
+    totalPrice: Number,
     orderStatus: String,
     adress: String
 })
@@ -27,7 +27,7 @@ const OrderSchema = new Schema({
 const ProductSchema = new Schema({
     id: String,
     name: String,
-    price: String,
+    price: Number,
     category: String
 }) 
 

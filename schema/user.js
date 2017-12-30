@@ -1,15 +1,31 @@
 export default `
     type User {
-        id: String!
+        id: ID!
         firstName: String!
         lastName: String!
         email: String!
         password: String!
-        orders: [String]
+        orders: [Order]
+    }
+
+    type LoginResponse {
+        ok: Boolean!
+        token: String
+        error: Error
+    }
+
+    type RegisterResponse {
+        ok: Boolean!
+        error: Error
     }
 
     type Query {
+        me: User
         users: [User]
-        orders: [Order]
+    }
+
+    type Mutation {
+        login(email: String!, password: String!): LoginResponse!
+        register(firstName: String!, lastName: String!, email: String!, password: String!): RegisterResponse!
     }
 `

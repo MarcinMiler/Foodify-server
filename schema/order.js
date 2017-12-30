@@ -1,20 +1,26 @@
 export default `
     type Order {
-        id: String!
-        clientID: String!
+        id: ID!
+        clientID: ID!
         date: String!
         products: [Products!]
-        totalPrice: String!
+        totalPrice: Float!
         orderStatus: String!
         adress: String!
     }
 
     type Products {
-        productID: String!
+        productID: ID!
         quantity: Int!
     }
 
-    type Query {
-        order(id: ID!): [Order]
+    input ProcutsInput {
+        productID: ID!
+        quantity: Int!
+    }
+
+    type Mutation {
+        newOrder(products: [ProcutsInput] adress: String! totalPrice: Float!): Order!
+        updateOrderStatus(newStatus: String! id: ID!): Boolean!
     }
 `

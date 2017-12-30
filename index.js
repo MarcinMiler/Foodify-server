@@ -9,6 +9,10 @@ import { fileLoader, mergeTypes, mergeResolvers } from 'merge-graphql-schemas'
 import { execute, subscribe } from 'graphql'
 import { createServer } from 'http'
 import { SubscriptionServer } from 'subscriptions-transport-ws'
+import models from './models/models'
+import jwt from 'jsonwebtoken'
+
+const SECRET = 'asd@#$NSNCSK@Jasdij@#bas4bsdi48hsjdknk'
 
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, './schema')));
 
@@ -32,8 +36,28 @@ db.once('open',() => {
 
 server.use('*', cors({ origin: 'http://localhost:3000' }))
 
+const addUser = async (req, res, next) => {
+  const token = req.headers['x-token']
+  if (token) {
+    try {
+      const { id } = jwt.verify(token, SECRET)
+      const user = {
+        id
+      }
+      req.user = user
+    } catch(err) {}
+  }
+  next()
+}
+
+server.use(addUser)
+
 server.use('/graphql', bodyParser.json(), graphqlExpress({
-  schema
+  schema,
+  context: {
+    models,
+    SECRET,
+  }
 }))
 
 server.use('/graphiql', graphiqlExpress({
