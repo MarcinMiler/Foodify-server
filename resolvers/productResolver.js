@@ -13,7 +13,9 @@ export default {
                 category
             })
             product.save()
-            return true
+            return {
+                ok: true
+            }
         },
         deleteProduct: async (parent, { id }, { models, user }) => {
             await models.ProductModel.remove({ id })

@@ -1,8 +1,8 @@
 export default `
     type User {
         id: ID!
-        firstName: String!
-        lastName: String!
+        firstName: String
+        lastName: String
         email: String!
         password: String!
         orders: [Order]
@@ -26,6 +26,6 @@ export default `
 
     type Mutation {
         login(email: String!, password: String!): LoginResponse!
-        register(firstName: String!, lastName: String!, email: String!, password: String!): RegisterResponse!
+        register(email: String!, password: String!): RegisterResponse!
     }
 `

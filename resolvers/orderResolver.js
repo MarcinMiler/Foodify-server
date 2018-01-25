@@ -1,21 +1,21 @@
 import uuid from 'uuid/v4'
+import moment from 'moment'
 
 export default {
     Mutation: {
-        newOrder: async (parent, { products, adress, totalPrice }, { models, user}) => {
-
+        newOrder: async (parent, { products, adress, postalCode, phoneNumber, totalPrice }, { models, user }) => {
             const order = new models.OrderModel({
                 id: uuid(),
                 clientID: uuid(),
-                date: 'as8923',
+                date: moment().format("MMM Do YY"),
                 products,
                 totalPrice,
                 orderStatus: 'Order Confirmed',
                 adress,
+                postalCode,
+                phoneNumber
             })
-
             await models.UserModel.update({ id: user.id }, { $push: { orders: order }})
-            order.save()
 
             return order
         },

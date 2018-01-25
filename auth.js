@@ -8,7 +8,7 @@ const createToken = async (id, SECRET) => {
 }
 
 export const register = async (args, models) => {
-    const { firstName, lastName, email, password } = args
+    const { email, password } = args
 
     if(await models.UserModel.findOne({ email })){
         return {
@@ -22,8 +22,6 @@ export const register = async (args, models) => {
 
     const user = new models.UserModel({
         id,
-        firstName,
-        lastName,
         email,
         password: hash,
     })

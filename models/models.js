@@ -21,7 +21,9 @@ const OrderSchema = new Schema({
     }],
     totalPrice: Number,
     orderStatus: String,
-    adress: String
+    address: String,
+    postalCode: String,
+    phoneNumber: String
 })
 
 const ProductSchema = new Schema({

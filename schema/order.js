@@ -6,7 +6,9 @@ export default `
         products: [Products!]
         totalPrice: Float!
         orderStatus: String!
-        adress: String!
+        address: String
+        postalCode: String!
+        phoneNumber: String!
     }
 
     type Products {
@@ -20,7 +22,7 @@ export default `
     }
 
     type Mutation {
-        newOrder(products: [ProcutsInput] adress: String! totalPrice: Float!): Order!
+        newOrder(products: [ProcutsInput] address: String! postalCode: String! phoneNumber: String! totalPrice: Int!): Order!
         updateOrderStatus(newStatus: String! id: ID!): Boolean!
     }
 `

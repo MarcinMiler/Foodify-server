@@ -38,6 +38,7 @@ server.use(cors('*'))
 
 const addUser = async (req, res, next) => {
   const token = req.headers['x-token']
+  
   if (token) {
     try {
       const { id } = jwt.verify(token, SECRET)
@@ -52,13 +53,14 @@ const addUser = async (req, res, next) => {
 
 server.use(addUser)
 
-server.use('/graphql', bodyParser.json(), graphqlExpress({
+server.use('/graphql', bodyParser.json(), graphqlExpress(req => ({
   schema,
   context: {
     models,
     SECRET,
+    user: req.user
   }
-}))
+})))
 
 server.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql',

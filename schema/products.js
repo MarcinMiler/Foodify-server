@@ -10,8 +10,13 @@ export default `
         products(category: String!): [Product!]
     }
 
+    type Response {
+        ok: Boolean!
+        error: Error
+    }
+
     type Mutation {
-        addProduct(name: String! price: Float!, category: String!): Boolean!
+        addProduct(name: String! price: Float!, category: String!): Response!
         deleteProduct(id: ID!): Boolean!
     }
 `
