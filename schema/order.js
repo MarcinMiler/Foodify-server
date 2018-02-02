@@ -22,7 +22,7 @@ export default `
     }
 
     type Mutation {
-        newOrder(products: [ProcutsInput] address: String! postalCode: String! phoneNumber: String! totalPrice: Int!): Order!
+        newOrder(products: [ProcutsInput] address: String date: String! postalCode: String phoneNumber: String totalPrice: Int! id: ID!): Order!
         updateOrderStatus(newStatus: String! id: ID!): Boolean!
     }
 `

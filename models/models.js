@@ -8,7 +8,7 @@ const UserSchema = new Schema({
     lastName: String,
     email: String,
     password: String,
-    orders: []
+    orders: [String]
 })
 
 const OrderSchema = new Schema({
