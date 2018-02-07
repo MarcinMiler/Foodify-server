@@ -21,6 +21,10 @@ export default `
         quantity: Int!
     }
 
+    type Query {
+        allOrders: [Order]
+    }
+
     type Mutation {
         newOrder(products: [ProcutsInput] address: String date: String! postalCode: String phoneNumber: String totalPrice: Int! id: ID!): Order!
         updateOrderStatus(newStatus: String! id: ID!): Boolean!

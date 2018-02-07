@@ -14,9 +14,16 @@ export default `
         orders: Int!
     }
 
+    type MonthBalanceResponse {
+        day: String!
+        balance: Float!
+    }
+
     type Query {
         monthBalance: BalanceResponse!
         weekOrders: [WeekOrderResponse!]
         popularFood: [PopularFoodResponse!]
+        balancePerDay: [MonthBalanceResponse!]
+        fullMonthBalance: [MonthBalanceResponse!]
     }
 `

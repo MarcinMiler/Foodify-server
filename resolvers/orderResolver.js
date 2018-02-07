@@ -2,6 +2,9 @@ import uuid from 'uuid/v4'
 import moment from 'moment'
 
 export default {
+    Query: {
+        allOrders: async (parent, args, { models }) => await models.OrderModel.find({})
+    },
     Mutation: {
         newOrder: async (parent, { products, adress, date, postalCode, phoneNumber, totalPrice, id }, { models, user }) => {
             const order = new models.OrderModel({
