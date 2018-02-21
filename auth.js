@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import uuid from 'uuid/v4'
+import moment from 'moment'
 
 const createToken = async (id, SECRET) => {
     const token = jwt.sign({ id: id }, SECRET, { expiresIn: '1y' })
@@ -24,6 +25,7 @@ export const register = async (args, models) => {
         id,
         email,
         password: hash,
+        date: moment().format('DD MMMM YYYY')
     })
 
     user.save()

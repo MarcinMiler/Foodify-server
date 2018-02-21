@@ -8,7 +8,8 @@ const UserSchema = new Schema({
     lastName: String,
     email: String,
     password: String,
-    orders: [String]
+    orders: [String],
+    date: String
 })
 
 const OrderSchema = new Schema({
@@ -30,7 +31,8 @@ const ProductSchema = new Schema({
     id: String,
     name: String,
     price: Number,
-    category: String
+    category: String,
+    url: String
 }) 
 
 const UserModel = mongoose.model('user', UserSchema)

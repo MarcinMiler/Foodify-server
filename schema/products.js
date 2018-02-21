@@ -4,10 +4,12 @@ export default `
         name: String!
         price: Float!
         category: String!
+        url: String
     }
 
     type Query {
         products(category: String!): [Product!]
+        allProducts: [Product!]
     }
 
     type Response {
@@ -16,7 +18,7 @@ export default `
     }
 
     type Mutation {
-        addProduct(name: String! price: Float!, category: String!): Response!
-        deleteProduct(id: ID!): Boolean!
+        addProduct(name: String! price: Float!, category: String! url: String!): Product!
+        deleteProduct(id: ID!): ID!
     }
 `

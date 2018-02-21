@@ -3,7 +3,11 @@ import moment from 'moment'
 
 export default {
     Query: {
-        allOrders: async (parent, args, { models }) => await models.OrderModel.find({})
+        allOrders: async (parent, args, { models }) => await models.OrderModel.find({}),
+        currentOrders: async (parent, args, { models }) => {
+            const orders = await models.OrderModel.find({})
+            return orders.filter(order => order.orderStatus !== 'Order complete')
+        }
     },
     Mutation: {
         newOrder: async (parent, { products, adress, date, postalCode, phoneNumber, totalPrice, id }, { models, user }) => {
@@ -14,7 +18,7 @@ export default {
                 date,
                 products,
                 totalPrice,
-                orderStatus: 'Order Confirmed',
+                orderStatus: 'Order placed',
                 address: 'Strzelce Male',
                 postalCode: '97-515',
                 phoneNumber: '123456789'

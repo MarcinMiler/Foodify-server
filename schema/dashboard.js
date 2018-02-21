@@ -19,11 +19,17 @@ export default `
         balance: Float!
     }
 
+    type NewUsersResponse {
+        day: String!
+        number: Int!
+    }
+
     type Query {
         monthBalance: BalanceResponse!
         weekOrders: [WeekOrderResponse!]
         popularFood: [PopularFoodResponse!]
         balancePerDay: [MonthBalanceResponse!]
         fullMonthBalance: [MonthBalanceResponse!]
+        newUsers: [NewUsersResponse!]
     }
 `

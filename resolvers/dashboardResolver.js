@@ -133,6 +133,32 @@ export default {
             data.forEach(d => d.day = d.day.substring(0,6))
             console.log(currentDay)
             return data
+        },
+        newUsers: async (parent, args, { models }) => {
+            let dates = []
+            const today = moment().format('ddd')
+
+
+            for(let i = 0; i < 7; i++) {
+                let data = { day: moment().subtract(i, 'day').format('DD MMMM YYYY'), number: 0 }
+                dates.push(data)
+            }
+
+            const reg = new RegExp(dates.join('|'))
+        
+            const users = await models.UserModel.find({}, 'id date')
+
+            const weekUsers = users
+                .filter(user => reg.test(user.date))
+            
+            return dates.map(date => {
+                weekUsers.map(user => {
+                    if(user.date === date.day) date.number++
+                })
+                date.day = date.day.substring(0,6)
+                return date
+            })
+            .reverse()
         }
     }
 }

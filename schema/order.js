@@ -23,6 +23,7 @@ export default `
 
     type Query {
         allOrders: [Order]
+        currentOrders: [Order]
     }
 
     type Mutation {
