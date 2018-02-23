@@ -16,12 +16,14 @@ export default {
                 goal: 500,
             }
         },
-        weekOrders: async (parent, args, { models }) => {
+        weekOrders: async (parent, { limit }, { models }) => {
             let dates = []
             const today = moment().format('ddd')
+            let days = 7
 
+            if(limit !== 'last week') days = 30
 
-            for(let i = 0; i < 7; i++) {
+            for(let i = 0; i < days; i++) {
                 let data = { day: moment().subtract(i, 'day').format('DD MMMM YYYY'), orders: 0 }
                 dates.push(data)
             }

@@ -1,5 +1,6 @@
 import uuid from 'uuid/v4'
 import moment from 'moment'
+import { pubsub } from '../index'
 
 export default {
     Query: {
@@ -23,6 +24,8 @@ export default {
                 postalCode: '97-515',
                 phoneNumber: '123456789'
             })
+            pubsub.publish('newOrder', order)
+
             await models.UserModel.update({ id }, { $push: { orders: order.id }})
             order.save()
 
@@ -32,5 +35,11 @@ export default {
             await models.OrderModel.update({ id }, { orderStatus: newStatus })
             return true
         }
+    },
+    Subscription: {
+        newOrder: {
+            resolve: (payload, args) => payload,
+            subscribe: () => pubsub.asyncIterator('newOrder')
+          }
     }
 }

@@ -26,7 +26,7 @@ export default `
 
     type Query {
         monthBalance: BalanceResponse!
-        weekOrders: [WeekOrderResponse!]
+        weekOrders(limit: String!): [WeekOrderResponse!]
         popularFood: [PopularFoodResponse!]
         balancePerDay: [MonthBalanceResponse!]
         fullMonthBalance: [MonthBalanceResponse!]

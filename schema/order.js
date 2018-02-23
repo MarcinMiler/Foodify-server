@@ -30,4 +30,8 @@ export default `
         newOrder(products: [ProcutsInput] address: String date: String! postalCode: String phoneNumber: String totalPrice: Int! id: ID!): Order!
         updateOrderStatus(newStatus: String! id: ID!): Boolean!
     }
+
+    type Subscription {
+        newOrder: Order!
+    }
 `

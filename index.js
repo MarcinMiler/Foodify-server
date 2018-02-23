@@ -12,6 +12,9 @@ import { SubscriptionServer } from 'subscriptions-transport-ws'
 import models from './models/models'
 import jwt from 'jsonwebtoken'
 import multer from 'multer'
+import { PubSub } from 'graphql-subscriptions'
+
+export const pubsub = new PubSub()
 // import moment from 'moment'
 
 // console.log(moment().format('DD MMMM YYYY'))
