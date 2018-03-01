@@ -1,6 +1,7 @@
 import uuid from 'uuid/v4'
 import moment from 'moment'
-import { pubsub } from '../index'
+import jwt from 'jsonwebtoken'
+import { pubsub, SECRET } from '../index'
 
 export default {
     Query: {
@@ -11,28 +12,30 @@ export default {
         }
     },
     Mutation: {
-        newOrder: async (parent, { products, adress, date, postalCode, phoneNumber, totalPrice, id }, { models, user }) => {
+        newOrder: async (parent, { products, address, postalCode, phoneNumber, totalPrice }, { models, user }) => {
             const order = new models.OrderModel({
                 id: uuid(),
-                clientID: id,
-                // date: moment().format("MMM Do YY"),
-                date,
+                clientID: user.id,
+                date: moment().format('DD MMMM YYYY'),
                 products,
                 totalPrice,
                 orderStatus: 'Order placed',
-                address: 'Strzelce Male',
-                postalCode: '97-515',
-                phoneNumber: '123456789'
+                address,
+                postalCode,
+                phoneNumber,
             })
             pubsub.publish('newOrder', order)
 
-            await models.UserModel.update({ id }, { $push: { orders: order.id }})
+            await models.UserModel.update({ id: user.id }, { $push: { orders: order.id }})
             order.save()
 
             return order
         },
         updateOrderStatus: async (parent, { newStatus, id }, { models }) => {
             await models.OrderModel.update({ id }, { orderStatus: newStatus })
+            let order = await models.OrderModel.findOne({ id })
+
+            pubsub.publish('newStatus', order)
             return true
         }
     },
@@ -40,6 +43,13 @@ export default {
         newOrder: {
             resolve: (payload, args) => payload,
             subscribe: () => pubsub.asyncIterator('newOrder')
-          }
+        },
+        newStatus: {
+            resolve: (payload, args, context) => {
+                const { id } = jwt.verify(args.token, SECRET)
+                if(id === payload.clientID) return payload
+            },
+            subscribe: () => pubsub.asyncIterator('newStatus')
+        },
     }
 }

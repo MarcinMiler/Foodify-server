@@ -13,6 +13,7 @@ export default `
 
     type Products {
         productID: ID!
+        name: String!
         quantity: Int!
     }
 
@@ -27,11 +28,12 @@ export default `
     }
 
     type Mutation {
-        newOrder(products: [ProcutsInput] address: String date: String! postalCode: String phoneNumber: String totalPrice: Int! id: ID!): Order!
+        newOrder(products: [ProcutsInput] address: String! postalCode: String! phoneNumber: String! totalPrice: Int!): Order!
         updateOrderStatus(newStatus: String! id: ID!): Boolean!
     }
 
     type Subscription {
-        newOrder: Order!
+        newOrder: Order
+        newStatus(token: String!): Order
     }
 `

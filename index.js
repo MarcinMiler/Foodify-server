@@ -15,11 +15,8 @@ import multer from 'multer'
 import { PubSub } from 'graphql-subscriptions'
 
 export const pubsub = new PubSub()
-// import moment from 'moment'
 
-// console.log(moment().format('DD MMMM YYYY'))
-
-const SECRET = 'asd@#$NSNCSK@Jasdij@#bas4bsdi48hsjdknk'
+export const SECRET = 'asd@#$NSNCSK@Jasdij@#bas4bsdi48hsjdknk'
 
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, './schema')))
 const resolvers = mergeResolvers(fileLoader(path.join(__dirname, './resolvers')))
@@ -55,9 +52,8 @@ const addUser = async (req, res, next) => {
   if (token) {
     try {
       const { id } = jwt.verify(token, SECRET)
-      const user = {
-        id
-      }
+      const user = { id }
+      console.log(user)
       req.user = user
     } catch(err) {}
   }
@@ -96,7 +92,7 @@ ws.listen(port, () => {
   new SubscriptionServer({
     execute,
     subscribe,
-    schema
+    schema,
   },
   {
     server: ws,

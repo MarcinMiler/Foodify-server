@@ -5,7 +5,7 @@ export default `
         lastName: String
         email: String!
         password: String!
-        orders: [String!]
+        orders: [String]
     }
 
     type LoginResponse {
@@ -20,7 +20,7 @@ export default `
     }
 
     type Query {
-        me: User
+        myOrders: [Order]
         users: [User]
     }
 
