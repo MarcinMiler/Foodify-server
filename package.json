@@ -4,13 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js --exec babel-node"
+    "start": "node ./index.js",
+    "start-dev": "nodemon ./server/index.js --exec babel-node",
+    "build": "rm -rf build && babel -d ./build ./server -s"
   },
   "author": "Marcin Miler",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "nodemon": "^1.12.1"
   },
@@ -31,5 +34,8 @@
     "multer": "^1.3.0",
     "subscriptions-transport-ws": "^0.9.1",
     "uuid": "^3.1.0"
+  },
+  "engines": {
+    "node": "8.9.4"
   }
 }

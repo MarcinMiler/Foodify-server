@@ -1,5 +1,6 @@
+import 'babel-polyfill'
 import express from 'express'
-import { graphqlExpress, graphiqlExpress } from 'graphql-server-express'
+import { graphqlExpress } from 'graphql-server-express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
@@ -38,6 +39,7 @@ const upload = multer({
 const server = express()
 
 mongoose.Promise = global.Promise
+// mongoose.connect('mongodb://marcin:marcin@ds263367.mlab.com:63367/foodify', { useMongoClient: true })
 mongoose.connect('mongodb://localhost/foodify', { useMongoClient: true })
 
 const db = mongoose.connection
@@ -64,6 +66,8 @@ server.use(addUser)
 server.use(cors('*'))
 server.use(express.static('static'))
 
+server.get('/', (req, res) => res.send('Work'))
+
 server.post('/upload', upload.any(), (req, res) => {
   res.json({ok: true})
 })
@@ -76,11 +80,6 @@ server.use('/graphql', bodyParser.json(), graphqlExpress(req => ({
     user: req.user
   }
 })))
-
-server.use('/graphiql', graphiqlExpress({
-  endpointURL: '/graphql',
-  subscriptionsEndpoint: `ws://localhost:4000/subscriptions`
-}))
 
 const ws = createServer(server)
 

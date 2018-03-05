@@ -46,8 +46,8 @@ export default {
         },
         popularFood: async (parent, args, { models }) => {
             let dates = []
-            let res = [{ type: 'Salads', orders: 0 },{ type: 'Meat', orders: 0 },{ type: 'Fishes', orders: 0 },
-                       { type: 'SeaFood', orders: 0 },{ type: 'Sushi', orders: 0 },{ type: 'Dessert', orders: 0 }]
+            let res = [{ type: 'Salad', orders: 0 },{ type: 'Dinner', orders: 0 },{ type: 'Fish', orders: 0 },
+                       { type: 'Sea food', orders: 0 },{ type: 'Sushi', orders: 0 },{ type: 'Dessert', orders: 0 }]
 
             const today = moment().format('ddd')
 

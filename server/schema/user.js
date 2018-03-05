@@ -1,8 +1,6 @@
 export default `
     type User {
         id: ID!
-        firstName: String
-        lastName: String
         email: String!
         password: String!
         orders: [String]
